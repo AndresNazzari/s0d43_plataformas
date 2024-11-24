@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { fetchUser } from '../services/authService.js';
+import { fetchMe } from '../services/authService.js';
 import { ROLES } from '../constants/roles.js';
 const UserContext = createContext();
 
@@ -27,7 +27,7 @@ export const UserProvider = ({ children }) => {
     const fetchData = async () => {
       try {
         if (localStorage.getItem('token')) {
-          const data = await fetchUser();
+          const data = await fetchMe();
           setUser(data);
         }
       } catch (error) {

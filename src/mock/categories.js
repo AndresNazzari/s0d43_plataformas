@@ -3,5 +3,5 @@ export const categories = [
   { id: 2, name: 'fuego' },
   { id: 3, name: 'planta' },
   { id: 4, name: 'nosotros' },
-  { id: 4, name: 'contacto' },
+  { id: 5, name: 'contacto' },
 ];

@@ -4,6 +4,7 @@ import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
+  DropdownSection,
   DropdownTrigger,
 } from '@nextui-org/react';
 import { useCartContext } from '../../context/CartContext.jsx';
@@ -17,7 +18,7 @@ export const NavAvatar = () => {
 
   return (
     <Badge content={totalQty} color="secondary">
-      <Dropdown placement="bottom-end">
+      <Dropdown placement="bottom-end" backdrop="blur">
         <DropdownTrigger>
           <Avatar
             isBordered
@@ -29,24 +30,39 @@ export const NavAvatar = () => {
             src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
           />
         </DropdownTrigger>
-        <DropdownMenu aria-label="Profile Actions" variant="flat">
-          <DropdownItem key="profile" className="h-14 gap-2">
-            <p className="font-semibold">{user.email}</p>
-            <p className="font-semibold">
-              {capitalizeFirstLetter(user.role.name)}
-            </p>
-          </DropdownItem>
-          <DropdownItem key="settings" href="/cart">
-            Carrito
-          </DropdownItem>
-          <DropdownItem key="team_settings" href="/profile">
-            Perfil
-          </DropdownItem>
-          {console.log(user)}
+        <DropdownMenu aria-label="Acciones" variant="flat">
+          <DropdownSection title="Acciones">
+            <DropdownItem href="/profile" key="profile1" className="h-14 gap-2">
+              <p className="font-semibold">{user.email}</p>
+              <p className="font-semibold">
+                {capitalizeFirstLetter(user.role.name)}
+              </p>
+            </DropdownItem>
+            <DropdownItem key="cart" href="/cart">
+              Carrito
+            </DropdownItem>
+            <DropdownItem key="profile" href="/profile">
+              Perfil
+            </DropdownItem>
+          </DropdownSection>
           {user?.role.id === ROLES.ADMIN.id && (
-            <DropdownItem>Dashboard</DropdownItem>
+            <DropdownSection title="Dashboard">
+              <DropdownItem
+                href="/dashboard/products"
+                className="text-secondary"
+                description="Gestiona los productos"
+              >
+                Productos
+              </DropdownItem>
+              <DropdownItem
+                href="/dashboard/users"
+                className="text-secondary"
+                description="Gestiona los usuarios"
+              >
+                Usuarios
+              </DropdownItem>
+            </DropdownSection>
           )}
-
           <DropdownItem key="logout" color="danger">
             Log Out
           </DropdownItem>

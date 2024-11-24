@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 const cartContext = createContext();
 export const { Provider } = cartContext;
@@ -12,22 +12,41 @@ export const CartContextProvider = ({ children }) => {
   const [totalQty, setTotalQty] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const addToCart = (item, qty) => {
-    setTotalQty(totalQty + qty);
-    setTotalPrice(totalPrice + qty * item.price /* * item.discount */);
+  useEffect(() => {
+    const cart = localStorage.getItem('cart');
+    const totalQty = localStorage.getItem('setTotalQty');
+    const totalPrice = localStorage.getItem('setTotalPrice');
+    if (cart) {
+      setCart(JSON.parse(cart));
+      setTotalQty(JSON.parse(totalQty));
+      setTotalPrice(JSON.parse(totalPrice));
+    }
+  }, []);
 
+  const addToCart = (item, qty) => {
+    let newCart = [];
     if (isInCart(item.id)) {
-      const newCart = cart.map((elem) => {
+      newCart = cart.map((elem) => {
         if (elem.id === item.id) {
           return { ...elem, qty: elem.qty + qty };
         } else {
           return elem;
         }
       });
-      setCart(newCart);
     } else {
-      setCart([...cart, { ...item, qty: qty }]);
+      newCart = [...cart, { ...item, qty: qty }];
     }
+
+    const newQty = totalQty + qty;
+    const newTotalPrice = totalPrice + qty * item.price;
+
+    setCart(newCart);
+    setTotalQty(newQty);
+    setTotalPrice(newTotalPrice);
+
+    localStorage.setItem('cart', JSON.stringify(newCart));
+    localStorage.setItem('setTotalQty', JSON.stringify(newQty));
+    localStorage.setItem('setTotalPrice', JSON.stringify(newTotalPrice));
   };
 
   const isInCart = (id) => {
@@ -35,17 +54,27 @@ export const CartContextProvider = ({ children }) => {
   };
 
   const removeFromCart = (item) => {
-    setTotalQty(totalQty - item.qty);
-    setTotalPrice(totalPrice - item.qty * item.price /* * item.discount */);
-
+    const newQty = totalQty - item.qty;
+    const newTotalPrice = totalPrice - item.qty * item.price;
     const newCart = cart.filter((e) => e.id !== item.id);
+
+    setTotalQty(newQty);
+    setTotalPrice(newTotalPrice);
     setCart(newCart);
+
+    localStorage.setItem('cart', JSON.stringify(newCart));
+    localStorage.setItem('setTotalQty', JSON.stringify(newQty));
+    localStorage.setItem('setTotalPrice', JSON.stringify(newTotalPrice));
   };
 
   const deleteCart = () => {
     setCart([]);
     setTotalQty(0);
     setTotalPrice(0);
+
+    localStorage.removeItem('cart');
+    localStorage.removeItem('setTotalQty');
+    localStorage.removeItem('setTotalPrice');
   };
 
   const value = {
