@@ -89,23 +89,6 @@ export const NavigationBar = () => {
             ))}
           </DropdownMenu>
         </Dropdown>
-
-        {/*<NavbarItem>*/}
-        {/*  <NavLink*/}
-        {/*    className={`text-2xl font-bold hover:text-violet-600 ${activeCategory === 'nosotros' ? 'text-secondary' : ''}`}*/}
-        {/*    to={`/nosotros`}*/}
-        {/*  >*/}
-        {/*    Nosotros*/}
-        {/*  </NavLink>*/}
-        {/*</NavbarItem>*/}
-        {/*<NavbarItem>*/}
-        {/*  <NavLink*/}
-        {/*    className={`text-2xl font-bold hover:text-violet-600 ${activeCategory === 'contacto' ? 'text-secondary' : ''}`}*/}
-        {/*    to={`/contacto`}*/}
-        {/*  >*/}
-        {/*    Contacto*/}
-        {/*  </NavLink>*/}
-        {/*</NavbarItem>*/}
       </NavbarContent>
 
       <NavbarContent as="div" justify="end">

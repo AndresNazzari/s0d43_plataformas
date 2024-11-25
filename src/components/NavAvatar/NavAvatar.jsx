@@ -46,9 +46,6 @@ export const NavAvatar = () => {
             <DropdownItem key="cart" href="/cart">
               Carrito
             </DropdownItem>
-            <DropdownItem key="profile" href="/profile">
-              Perfil
-            </DropdownItem>
           </DropdownSection>
           {user?.role.id === ROLES.ADMIN.id && (
             <DropdownSection title="Dashboard">
