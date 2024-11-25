@@ -11,10 +11,15 @@ import { useCartContext } from '../../context/CartContext.jsx';
 import { useUserContext } from '../../context/AuthContext.jsx';
 import { capitalizeFirstLetter } from '../../utils/utils.js';
 import { ROLES } from '../../constants/roles.js';
+import { useNavigate } from 'react-router-dom';
 
 export const NavAvatar = () => {
   const { totalQty } = useCartContext();
-  const { user } = useUserContext();
+  const { user, logOut } = useUserContext();
+
+  const handleLogoutOnClick = () => {
+    logOut();
+  };
 
   return (
     <Badge content={totalQty} color="secondary">
@@ -63,7 +68,11 @@ export const NavAvatar = () => {
               </DropdownItem>
             </DropdownSection>
           )}
-          <DropdownItem key="logout" color="danger">
+          <DropdownItem
+            key="logout"
+            color="danger"
+            onClick={handleLogoutOnClick}
+          >
             Log Out
           </DropdownItem>
         </DropdownMenu>

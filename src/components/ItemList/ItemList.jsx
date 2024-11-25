@@ -1,5 +1,4 @@
 import styles from './ItemList.module.scss';
-import PropTypes from 'prop-types';
 import { Item } from '../Item';
 
 export function ItemList({ products, isLoaded }) {
@@ -14,21 +13,3 @@ export function ItemList({ products, isLoaded }) {
     </>
   );
 }
-
-ItemList.propTypes = {
-  isLoaded: PropTypes.bool.isRequired,
-  products: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      category: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      rating: PropTypes.shape({
-        rate: PropTypes.number.isRequired,
-        count: PropTypes.number.isRequired,
-      }).isRequired,
-    })
-  ).isRequired,
-};

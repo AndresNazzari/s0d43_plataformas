@@ -1,7 +1,7 @@
 import styles from './ItemDetail.module.scss';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchProduct } from '../../services/productsService.js';
+import { getProductById } from '../../services/productsService.js';
 import {
   Button,
   Card,
@@ -9,12 +9,12 @@ import {
   CardHeader,
   Chip,
   Image,
-  Input,
   Skeleton,
 } from '@nextui-org/react';
 import { useCartContext } from '../../context/CartContext.jsx';
 import { useUserContext } from '../../context/AuthContext.jsx';
 import { capitalizeFirstLetter } from '../../utils/utils.js';
+
 export function ItemDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -24,7 +24,7 @@ export function ItemDetail() {
   const { user } = useUserContext();
 
   useEffect(() => {
-    fetchProduct(id)
+    getProductById(id)
       .then((data) => setProduct(data))
       .then(() => setIsLoaded(true));
   }, [id]);
@@ -40,13 +40,11 @@ export function ItemDetail() {
     setQuantity(quantity + 1);
   };
 
-  console.log(product);
-
   return (
     product &&
     isLoaded && (
-      <div className="flex justify-center mt-8">
-        <Card className="py-4">
+      <div className="flex   items-center justify-center mt-8">
+        <Card className="py-4 w-1/2">
           <Skeleton isLoaded={isLoaded} className="rounded-lg">
             <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
               <p className="text-tiny uppercase font-bold">{product.title}</p>
@@ -108,7 +106,7 @@ export function ItemDetail() {
                   </Button>
                 </>
               ) : (
-                <Button color="secondary">
+                <Button color="secondary" className="mt-4">
                   Logueate para agregar al carrito
                 </Button>
               )}

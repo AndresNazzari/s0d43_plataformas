@@ -4,9 +4,6 @@ import { categories } from '../mock/categories.js';
 
 export const fetchCategory = async () => {
   try {
-    // const { data } = await fetchService({
-    //   url: GET_CATEGORY,
-    // });
     const data = categories;
 
     return data;

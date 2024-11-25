@@ -11,12 +11,28 @@ import { useNavigate, useHref } from 'react-router-dom';
 import { Products } from './pages/Dashboard/Products';
 import { Users } from './pages/Dashboard/Users';
 import { Cart } from './pages/Cart';
+import { Register } from './pages/Register';
+import { ProductForm } from './components/ProductForm';
+import { UserForm } from './components/UserForm';
+import { useEffect } from 'react';
 import { ROLES } from './constants/roles.js';
+import POKEMONS from './mock/products.js';
+import { USERS } from './mock/USERS.js';
 
 export default function App() {
   const navigate = useNavigate();
   const usersAllowed = [ROLES.ADMIN.id, ROLES.USER.id];
   const adminAllowed = [ROLES.ADMIN.id];
+
+  useEffect(() => {
+    const products = JSON.parse(localStorage.getItem('products'));
+    if (!products || products.length === 0)
+      localStorage.setItem('products', JSON.stringify(POKEMONS));
+
+    const users = JSON.parse(localStorage.getItem('users'));
+    if (!users || users.length === 0)
+      localStorage.setItem('users', JSON.stringify(USERS));
+  }, []);
 
   return (
     <>
@@ -24,24 +40,22 @@ export default function App() {
         <NavigationBar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/product/:id" element={<ItemDetail />} />
           <Route path="/category/:category" element={<Home />} />
+          <Route path="/product/:id" element={<ItemDetail />} />
 
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
           <Route element={<PrivateRoute allowedRoles={usersAllowed} />}>
             <Route path="/cart" element={<Cart />} />
-          </Route>
-
-          <Route element={<PrivateRoute allowedRoles={usersAllowed} />}>
             <Route path="/profile" element={<Profile />} />
           </Route>
 
           <Route element={<PrivateRoute allowedRoles={adminAllowed} />}>
             <Route path="/dashboard/products" element={<Products />} />
-          </Route>
-          <Route element={<PrivateRoute allowedRoles={adminAllowed} />}>
+            <Route path="/dashboard/products/form" element={<ProductForm />} />
             <Route path="/dashboard/users" element={<Users />} />
+            <Route path="/dashboard/users/form" element={<UserForm />} />
           </Route>
         </Routes>
         <Footer />

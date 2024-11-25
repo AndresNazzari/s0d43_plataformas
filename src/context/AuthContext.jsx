@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { fetchMe } from '../services/authService.js';
 import { ROLES } from '../constants/roles.js';
+import { getUsers } from '../services/usersService.js';
 const UserContext = createContext();
 
 export const useUserContext = () => {
@@ -9,13 +10,16 @@ export const useUserContext = () => {
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [allUsers, setAllUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const logIn = (userData) => {
     setUser(userData);
+    localStorage.setItem('token', userData.password);
   };
 
   const logOut = () => {
+    localStorage.removeItem('token');
     setUser(null);
   };
 
@@ -26,6 +30,12 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // No se usara luego, solo para almacenar los users localmente
+        await getUsers();
+        const allUsers = localStorage.getItem('users');
+        setAllUsers(JSON.parse(allUsers));
+        ///
+
         if (localStorage.getItem('token')) {
           const data = await fetchMe();
           setUser(data);
@@ -42,6 +52,7 @@ export const UserProvider = ({ children }) => {
 
   const contextValue = {
     user,
+    setUser,
     logIn,
     logOut,
     updateUser,

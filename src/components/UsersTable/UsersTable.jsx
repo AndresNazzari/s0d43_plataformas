@@ -9,26 +9,50 @@ import {
   User,
   Chip,
   Tooltip,
+  Pagination,
 } from '@nextui-org/react';
 import { PlusIcon, DeleteIcon, EditIcon } from '../Icons';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { USERS_TABLE_COLUMNS } from '../../constants/dashboard.js';
-import { fetchUsers } from '../../services/usersService.js';
+import { deleteUser, getUsers } from '../../services/usersService.js';
 import { Loader } from '../Loader/index.js';
+import { useNavigate } from 'react-router-dom';
 
 export const UsersTable = () => {
   const [users, setUsers] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const rowsPerPage = 8;
+  const [page, setPage] = useState(1);
+
+  const pages = Math.ceil(users.length / rowsPerPage);
+
+  const items = useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    return users.slice(start, end);
+  }, [page, users]);
 
   useEffect(() => {
-    fetchUsers()
+    setLoading(true);
+    getUsers()
       .then((data) => setUsers(data))
-      .then(() => setIsLoaded(true));
+      .then(() => setLoading(false));
   }, []);
 
-  const handleEditar = (user) => {};
+  const handleUser = (user) => {
+    console.log('user', user);
+    navigate(`/dashboard/users/form`, {
+      state: { user },
+    });
+  };
 
-  const handleEliminar = (id) => {};
+  const handleEliminar = async (id) => {
+    const updatedUsers = await deleteUser(id);
+    setUsers(updatedUsers);
+  };
 
   const renderCell = useCallback((item, columnKey) => {
     const cellValue = users[columnKey];
@@ -37,7 +61,7 @@ export const UsersTable = () => {
         return (
           <User
             avatarProps={{ radius: 'lg', src: item.image }}
-            description={item.name}
+            description={`${item.name} ${item.surname}`}
             name={cellValue}
           >
             {item.name} {item.surname}
@@ -68,15 +92,15 @@ export const UsersTable = () => {
             <Tooltip content="Editar">
               <span
                 className="text-lg text-default-400 cursor-pointer active:opacity-50"
-                onClick={() => handleEditar(item.id)}
+                onClick={() => handleUser(item)}
               >
                 <EditIcon />
               </span>
             </Tooltip>
-            <Tooltip color="danger" content="Eliminar del carrito">
+            <Tooltip color="danger" content="Eliminar usuario">
               <span
                 className="text-lg text-danger cursor-pointer active:opacity-50"
-                onClick={() => handleEliminar(item)}
+                onClick={() => handleEliminar(item.id)}
               >
                 <DeleteIcon />
               </span>
@@ -91,14 +115,18 @@ export const UsersTable = () => {
   const topContent = useMemo(() => {
     return (
       <div className="flex ">
-        <Button color="primary" endContent={<PlusIcon />}>
+        <Button
+          color="primary"
+          endContent={<PlusIcon />}
+          onClick={() => handleUser()}
+        >
           Crear nuevo usuario
         </Button>
       </div>
     );
   }, []);
 
-  return !isLoaded ? (
+  return loading ? (
     <Loader />
   ) : (
     <Table
@@ -106,6 +134,19 @@ export const UsersTable = () => {
       className="w-4/5"
       topContent={topContent}
       topContentPlacement="outside"
+      bottomContent={
+        <div className="flex w-full justify-center">
+          <Pagination
+            isCompact
+            showControls
+            showShadow
+            color="secondary"
+            page={page}
+            total={pages}
+            onChange={(page) => setPage(page)}
+          />
+        </div>
+      }
     >
       <TableHeader columns={USERS_TABLE_COLUMNS}>
         {(column) => (
@@ -117,7 +158,7 @@ export const UsersTable = () => {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={'No se encontraron usuarios'} items={users}>
+      <TableBody emptyContent={'No se encontraron usuarios'} items={items}>
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => (

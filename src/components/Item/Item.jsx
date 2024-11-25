@@ -8,8 +8,6 @@ import {
   Skeleton,
 } from '@nextui-org/react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { useUserContext } from '../../context/AuthContext.jsx';
 
 export function Item({ item, isLoaded }) {
   return (
@@ -50,19 +48,3 @@ export function Item({ item, isLoaded }) {
     </Card>
   );
 }
-
-Item.propTypes = {
-  isLoaded: PropTypes.bool.isRequired,
-  item: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    category: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    rating: PropTypes.shape({
-      rate: PropTypes.number.isRequired,
-      count: PropTypes.number.isRequired,
-    }).isRequired,
-  }).isRequired,
-};

@@ -9,33 +9,55 @@ import {
   User,
   Chip,
   Tooltip,
+  Pagination,
 } from '@nextui-org/react';
 import { PlusIcon, DeleteIcon, EyeIcon, EditIcon } from '../Icons';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { PRODUCTS_TABLE_COLUMNS } from '../../constants/dashboard.js';
-import { fetchProducts } from '../../services/productsService.js';
+import {
+  deleteProduct,
+  getAllProducts,
+} from '../../services/productsService.js';
 import { Loader } from '../Loader/index.js';
-import { useCartContext } from '../../context/CartContext.jsx';
 import { useNavigate } from 'react-router-dom';
 
 export const ProductsTable = () => {
   const [products, setProducts] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const { removeFromCart } = useCartContext();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const rowsPerPage = 8;
+  const [page, setPage] = useState(1);
+
+  const pages = Math.ceil(products.length / rowsPerPage);
+
+  const items = useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    return products.slice(start, end);
+  }, [page, products]);
 
   useEffect(() => {
-    fetchProducts()
+    setLoading(true);
+    getAllProducts()
       .then((data) => setProducts(data))
-      .then(() => setIsLoaded(true));
+      .then(() => setLoading(false));
   }, []);
 
   const handleVerDetalles = (id) => {
     navigate(`/product/${id}`);
   };
-  const handleEditar = (item) => {};
 
-  const handleEliminar = (item) => {};
+  const handleProduct = (item) => {
+    navigate(`/dashboard/products/form`, {
+      state: { item },
+    });
+  };
+
+  const handleEliminar = (id) => {
+    const updatedProducts = deleteProduct(id);
+    setProducts(updatedProducts);
+  };
 
   const renderCell = useCallback((item, columnKey) => {
     const cellValue = products[columnKey];
@@ -92,7 +114,7 @@ export const ProductsTable = () => {
             <Tooltip content="Editar">
               <span
                 className="text-lg text-default-400 cursor-pointer active:opacity-50"
-                onClick={() => handleEditar(item.id)}
+                onClick={() => handleProduct(item)}
               >
                 <EditIcon />
               </span>
@@ -100,7 +122,7 @@ export const ProductsTable = () => {
             <Tooltip color="danger" content="Eliminar del carrito">
               <span
                 className="text-lg text-danger cursor-pointer active:opacity-50"
-                onClick={() => handleEliminar(item)}
+                onClick={() => handleEliminar(item.id)}
               >
                 <DeleteIcon />
               </span>
@@ -115,14 +137,18 @@ export const ProductsTable = () => {
   const topContent = useMemo(() => {
     return (
       <div className="flex ">
-        <Button color="primary" endContent={<PlusIcon />}>
+        <Button
+          color="primary"
+          endContent={<PlusIcon />}
+          onClick={() => handleProduct()}
+        >
           Crear nuevo producto
         </Button>
       </div>
     );
   }, []);
 
-  return !isLoaded ? (
+  return loading ? (
     <Loader />
   ) : (
     <Table
@@ -130,6 +156,19 @@ export const ProductsTable = () => {
       className="w-4/5"
       topContent={topContent}
       topContentPlacement="outside"
+      bottomContent={
+        <div className="flex w-full justify-center">
+          <Pagination
+            isCompact
+            showControls
+            showShadow
+            color="secondary"
+            page={page}
+            total={pages}
+            onChange={(page) => setPage(page)}
+          />
+        </div>
+      }
     >
       <TableHeader columns={PRODUCTS_TABLE_COLUMNS}>
         {(column) => (
@@ -141,7 +180,7 @@ export const ProductsTable = () => {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={'No se encontraron productos'} items={products}>
+      <TableBody emptyContent={'No se encontraron productos'} items={items}>
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => (

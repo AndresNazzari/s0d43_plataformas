@@ -1,6 +1,7 @@
 import {
   Avatar,
   Badge,
+  Button,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -10,15 +11,19 @@ import {
   NavbarContent,
   NavbarItem,
 } from '@nextui-org/react';
+import { MdOutlineCatchingPokemon } from 'react-icons/md';
+
 import { fetchCategory } from '../../services/categoryService.js';
 import { useEffect, useState } from 'react';
 import { capitalizeFirstLetter } from '../../utils/utils.js';
 
 import { NavAvatar } from '../NavAvatar';
 import { useUserContext } from '../../context/AuthContext.jsx';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { ChevronDownIcon } from '../Icons/index.js';
 
 export const NavigationBar = () => {
+  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState(null); // Estado para el enlace activo
   const { user } = useUserContext();
@@ -31,39 +36,91 @@ export const NavigationBar = () => {
     setActiveCategory(categoryId);
   };
 
-  return (
-    <Navbar>
-      <NavbarBrand>
-        <svg fill="none" height="36" viewBox="0 0 32 32" width="36">
-          <path
-            clipRule="evenodd"
-            d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
-            fill="currentColor"
-            fillRule="evenodd"
-          />
-        </svg>
-        <p className="font-bold text-inherit">ACME</p>
-      </NavbarBrand>
+  const handleLoginOnClick = () => {
+    navigate('/login');
+  };
 
+  return (
+    <Navbar isBordered>
+      <NavLink className={`hover:text-violet-600 `} to={`/`}>
+        <NavbarBrand className={`text-4xl font-bold  `}>
+          <MdOutlineCatchingPokemon />
+          <p className="font-bold text-inherit">POKETIENDA</p>
+        </NavbarBrand>
+      </NavLink>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        {categories.map((category) => (
-          <NavbarItem
-            key={category.id}
-            isActive={activeCategory === category.name}
+        <NavbarItem>
+          <NavLink
+            className={`text-2xl font-bold hover:text-violet-600 `}
+            to={`/`}
           >
-            <NavLink
-              className={`text-2xl font-bold ${activeCategory === category.id ? 'text-secondary' : ''}`}
-              to={`/category/${category.name}`}
-              onClick={() => handleCategoryClick(category.id)}
-            >
-              {capitalizeFirstLetter(category.name)}
-            </NavLink>
+            Productos
+          </NavLink>
+        </NavbarItem>
+        <Dropdown>
+          <NavbarItem>
+            <DropdownTrigger>
+              <Button
+                disableRipple
+                className="text-2xl font-bold p-0 bg-transparent data-[hover=true]:bg-transparent"
+                endContent={<ChevronDownIcon />}
+                radius="sm"
+                variant="light"
+              >
+                Categorias
+              </Button>
+            </DropdownTrigger>
           </NavbarItem>
-        ))}
+          <DropdownMenu
+            aria-label="ACME features"
+            className="w-40"
+            itemClasses={{
+              base: 'gap-4',
+            }}
+          >
+            {categories.map((category) => (
+              <DropdownItem
+                key={category.id}
+                onClick={() => handleCategoryClick(category.id)}
+                href={`/category/${category.name}`}
+              >
+                {capitalizeFirstLetter(category.name)}
+              </DropdownItem>
+            ))}
+          </DropdownMenu>
+        </Dropdown>
+
+        <NavbarItem>
+          <NavLink
+            className={`text-2xl font-bold hover:text-violet-600 ${activeCategory === 'nosotros' ? 'text-secondary' : ''}`}
+            to={`/nosotros`}
+          >
+            Nosotros
+          </NavLink>
+        </NavbarItem>
+        <NavbarItem>
+          <NavLink
+            className={`text-2xl font-bold hover:text-violet-600 ${activeCategory === 'contacto' ? 'text-secondary' : ''}`}
+            to={`/contacto`}
+          >
+            Contacto
+          </NavLink>
+        </NavbarItem>
       </NavbarContent>
 
       <NavbarContent as="div" justify="end">
-        {user ? <NavAvatar /> : <>Iniciar Sesión</>}
+        {user ? (
+          <NavAvatar />
+        ) : (
+          <Button
+            color="primary"
+            variant="ghost"
+            size="sm"
+            onClick={handleLoginOnClick}
+          >
+            Iniciar Sesión
+          </Button>
+        )}
       </NavbarContent>
     </Navbar>
   );

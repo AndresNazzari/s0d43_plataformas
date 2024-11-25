@@ -1,32 +1,48 @@
-import fetchService from './fetchService.js';
-import { GET_PRODUCT } from '../constants/endpoints.js';
-import pokemons from '../mock/products.js';
+export const getAllProducts = async (category) => {
+  const productsStr = localStorage.getItem('products');
+  const products = JSON.parse(productsStr);
 
-export const fetchProducts = async (category) => {
-  try {
-    // const { data } = await fetchService({
-    //   url: GET_ALL_PRODUCTS,
-    // });
-    const data = pokemons;
-    if (category) {
-      return data.filter((product) => product.category === category);
-    }
-
-    return data;
-  } catch (error) {
-    console.error('Error fetching products', error);
+  if (category) {
+    return products?.filter((product) => product.category === category);
   }
+
+  return products;
 };
 
-export const fetchProduct = async (id) => {
-  try {
-    // const { data } = await fetchService({
-    //   url: GET_ALL_PRODUCTS + '/' + id,
-    // });
-    const data = pokemons;
+export const getProductById = async (id) => {
+  const productsStr = localStorage.getItem('products');
+  const product = JSON.parse(productsStr);
 
-    return data.find((product) => product.id === parseInt(id));
-  } catch (error) {
-    console.error('Error fetching products', error);
-  }
+  return product?.find((product) => product.id === parseInt(id));
+};
+
+export const deleteProduct = (id) => {
+  const productsStr = localStorage.getItem('products');
+  const product = JSON.parse(productsStr);
+  const data = product?.filter((product) => product.id !== parseInt(id));
+
+  localStorage.setItem('products', JSON.stringify(data));
+  return data;
+};
+
+export const createProduct = async (product) => {
+  const productsStr = localStorage.getItem('products');
+  const products = JSON.parse(productsStr);
+  const newProduct = { ...product, id: products.length + 1 };
+  const data = [...products, newProduct];
+  localStorage.setItem('products', JSON.stringify(data));
+
+  return data;
+};
+
+export const updateProduct = async (product) => {
+  const productsStr = localStorage.getItem('products');
+  const products = JSON.parse(productsStr);
+  const data = products.map((item) =>
+    item.id === product.id ? product : item
+  );
+
+  localStorage.setItem('products', JSON.stringify(data));
+
+  return data;
 };

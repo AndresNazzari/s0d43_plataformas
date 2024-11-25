@@ -1,7 +1,7 @@
 import fetchService from './fetchService';
 import { GET_ME } from '../constants/endpoints';
 import { ROLES } from '../constants/roles';
-import { users } from '../mock/users';
+import { USERS } from '../mock/USERS.js';
 
 export const fetchMe = async () => {
   try {
@@ -10,7 +10,7 @@ export const fetchMe = async () => {
     // });
     // if (!data) return null;
 
-    return users.find(
+    return USERS.find(
       (user) => user.password === localStorage.getItem('token')
     );
   } catch (error) {

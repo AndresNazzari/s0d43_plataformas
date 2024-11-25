@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ItemList } from '../../components/ItemList';
 import { Loader } from '../../components/Loader';
-import { fetchProducts } from '../../services/productsService.js';
+import { getAllProducts } from '../../services/productsService.js';
 
 export const Home = () => {
   const [products, setProducts] = useState([]);
@@ -10,14 +10,14 @@ export const Home = () => {
   const { category } = useParams();
 
   useEffect(() => {
-    fetchProducts(category)
+    getAllProducts(category)
       .then((data) => setProducts(data))
       .then(() => setIsLoaded(true));
   }, [category]);
 
   return (
     <>
-      {products.length === 0 ? (
+      {!products || products.length === 0 ? (
         <Loader />
       ) : (
         <ItemList products={products} isLoaded={isLoaded} />
