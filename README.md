@@ -3,8 +3,8 @@
 
 ## Datos del proyecto
 
-Documento online con descripcion del proyecto: 
-
+Documento online con descripcion del proyecto: https://docs.google.com/document/d/1Jm4nxAaJk9iV_G3E1USBrd-wcwGp6C35jp1Ygq4cDgg/edit?usp=sharing
+Link Repositorio: https://github.com/AndresNazzari/s0d43_plataformas
 Curso: S0D43 - ACN4AV
 4° Cuatrimestre, 2024
 Profesor: Fernando Gonzalo Gaitan
