@@ -869,7 +869,7 @@ const POKEMONS = [
   },
   {
     id: 63,
-    category: 'psíquico',
+    category: 'psiquico',
     description:
       'Abra es un Pokémon tímido que pasa la mayor parte del tiempo durmiendo. Puede teletransportarse instantáneamente si se siente en peligro.',
     image:
@@ -883,7 +883,7 @@ const POKEMONS = [
   },
   {
     id: 64,
-    category: 'psíquico',
+    category: 'psiquico',
     description:
       'Kadabra, la evolución de Abra, posee habilidades psíquicas avanzadas. Utiliza una cuchara metálica como conducto para su energía.',
     image:
@@ -897,7 +897,7 @@ const POKEMONS = [
   },
   {
     id: 65,
-    category: 'psíquico',
+    category: 'psiquico',
     description:
       'Alakazam, la evolución final de Abra, tiene un intelecto superior. Es capaz de recordar todo lo que ha aprendido y utiliza sus habilidades psíquicas para manipular objetos.',
     image:
@@ -1095,7 +1095,7 @@ const POKEMONS = [
     id: 79,
     category: 'agua',
     description:
-      'Slowpoke es un Pokémon tipo agua y psíquico conocido por su actitud despreocupada. Aunque es lento, tiene poderes psíquicos sorprendentes.',
+      'Slowpoke es un Pokémon tipo agua y psiquico conocido por su actitud despreocupada. Aunque es lento, tiene poderes psiquicos sorprendentes.',
     image:
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/79.png',
     price: 11.49,
@@ -1331,9 +1331,9 @@ const POKEMONS = [
   },
   {
     id: 96,
-    category: 'psíquico',
+    category: 'psiquico',
     description:
-      'Drowzee es un Pokémon de tipo psíquico conocido por su habilidad para inducir el sueño en otros. Se alimenta de los sueños de sus víctimas.',
+      'Drowzee es un Pokémon de tipo psiquico conocido por su habilidad para inducir el sueño en otros. Se alimenta de los sueños de sus víctimas.',
     image:
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/96.png',
     price: 9.49,
@@ -1345,9 +1345,9 @@ const POKEMONS = [
   },
   {
     id: 97,
-    category: 'psíquico',
+    category: 'psiquico',
     description:
-      'Hypno, la evolución de Drowzee, utiliza un péndulo para hipnotizar a sus enemigos. Tiene un poder psíquico mucho mayor que su preevolución.',
+      'Hypno, la evolución de Drowzee, utiliza un péndulo para hipnotizar a sus enemigos. Tiene un poder psiquico mucho mayor que su preevolución.',
     image:
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/97.png',
     price: 15.49,
@@ -1417,7 +1417,7 @@ const POKEMONS = [
     id: 102,
     category: 'planta',
     description:
-      'Exeggcute es un grupo de huevos con mentes conectadas. Utilizan poderes psíquicos para protegerse y trabajar juntos como un solo Pokémon.',
+      'Exeggcute es un grupo de huevos con mentes conectadas. Utilizan poderes psiquicos para protegerse y trabajar juntos como un solo Pokémon.',
     image:
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/102.png',
     price: 12.49,
@@ -1695,9 +1695,9 @@ const POKEMONS = [
   },
   {
     id: 122,
-    category: 'psíquico',
+    category: 'psiquico',
     description:
-      'Mr. Mime es un Pokémon que utiliza barreras invisibles creadas con sus poderes psíquicos. Es conocido por sus habilidades de mimo y sus movimientos teatrales.',
+      'Mr. Mime es un Pokémon que utiliza barreras invisibles creadas con sus poderes psiquicos. Es conocido por sus habilidades de mimo y sus movimientos teatrales.',
     image:
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/122.png',
     price: 15.99,
@@ -1725,7 +1725,7 @@ const POKEMONS = [
     id: 124,
     category: 'hielo',
     description:
-      'Jynx es un Pokémon de tipo hielo y psíquico conocido por su danza hipnótica. Puede congelar a sus enemigos con un solo toque.',
+      'Jynx es un Pokémon de tipo hielo y psiquico conocido por su danza hipnótica. Puede congelar a sus enemigos con un solo toque.',
     image:
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/124.png',
     price: 16.49,
@@ -2045,9 +2045,9 @@ const POKEMONS = [
   },
   {
     id: 147,
-    category: 'dragón',
+    category: 'dragon',
     description:
-      'Dratini, un Pokémon de tipo dragón, es una criatura rara y esquiva. Vive en aguas profundas y se dice que es el símbolo de la pureza.',
+      'Dratini, un Pokémon de tipo dragon, es una criatura rara y esquiva. Vive en aguas profundas y se dice que es el símbolo de la pureza.',
     image:
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/147.png',
     price: 14.99,
@@ -2059,7 +2059,7 @@ const POKEMONS = [
   },
   {
     id: 148,
-    category: 'dragón',
+    category: 'dragon',
     description:
       'Dragonair, la evolución de Dratini, tiene un cuerpo elegante y puede controlar el clima. Su aura mística inspira respeto y admiración.',
     image:
@@ -2073,7 +2073,7 @@ const POKEMONS = [
   },
   {
     id: 149,
-    category: 'dragón',
+    category: 'dragon',
     description:
       'Dragonite, la evolución final de Dratini, es un Pokémon amable pero extremadamente poderoso. Puede volar a velocidades supersónicas y proteger a otros Pokémon.',
     image:
@@ -2087,7 +2087,7 @@ const POKEMONS = [
   },
   {
     id: 150,
-    category: 'psíquico',
+    category: 'psiquico',
     description:
       'Mewtwo, un Pokémon legendario creado por manipulación genética, es conocido por su intelecto superior y su fuerza psíquica inigualable.',
     image:
@@ -2101,7 +2101,7 @@ const POKEMONS = [
   },
   {
     id: 151,
-    category: 'psíquico',
+    category: 'psiquico',
     description:
       'Mew es un Pokémon mítico conocido por su naturaleza juguetona. Se dice que contiene el ADN de todos los Pokémon y puede aprender cualquier habilidad.',
     image:
