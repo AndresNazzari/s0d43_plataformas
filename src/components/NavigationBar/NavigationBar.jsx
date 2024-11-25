@@ -42,8 +42,8 @@ export const NavigationBar = () => {
 
   return (
     <Navbar isBordered>
-      <NavLink className={`hover:text-violet-600 `} to={`/`}>
-        <NavbarBrand className={`text-4xl font-bold  `}>
+      <NavLink className={`hover:text-violet-600`} to={`/`}>
+        <NavbarBrand className={`text-4xl font-bold`}>
           <MdOutlineCatchingPokemon />
           <p className="font-bold text-inherit">POKETIENDA</p>
         </NavbarBrand>
@@ -90,22 +90,22 @@ export const NavigationBar = () => {
           </DropdownMenu>
         </Dropdown>
 
-        <NavbarItem>
-          <NavLink
-            className={`text-2xl font-bold hover:text-violet-600 ${activeCategory === 'nosotros' ? 'text-secondary' : ''}`}
-            to={`/nosotros`}
-          >
-            Nosotros
-          </NavLink>
-        </NavbarItem>
-        <NavbarItem>
-          <NavLink
-            className={`text-2xl font-bold hover:text-violet-600 ${activeCategory === 'contacto' ? 'text-secondary' : ''}`}
-            to={`/contacto`}
-          >
-            Contacto
-          </NavLink>
-        </NavbarItem>
+        {/*<NavbarItem>*/}
+        {/*  <NavLink*/}
+        {/*    className={`text-2xl font-bold hover:text-violet-600 ${activeCategory === 'nosotros' ? 'text-secondary' : ''}`}*/}
+        {/*    to={`/nosotros`}*/}
+        {/*  >*/}
+        {/*    Nosotros*/}
+        {/*  </NavLink>*/}
+        {/*</NavbarItem>*/}
+        {/*<NavbarItem>*/}
+        {/*  <NavLink*/}
+        {/*    className={`text-2xl font-bold hover:text-violet-600 ${activeCategory === 'contacto' ? 'text-secondary' : ''}`}*/}
+        {/*    to={`/contacto`}*/}
+        {/*  >*/}
+        {/*    Contacto*/}
+        {/*  </NavLink>*/}
+        {/*</NavbarItem>*/}
       </NavbarContent>
 
       <NavbarContent as="div" justify="end">

@@ -14,9 +14,11 @@ import {
 import { useCartContext } from '../../context/CartContext.jsx';
 import { useUserContext } from '../../context/AuthContext.jsx';
 import { capitalizeFirstLetter } from '../../utils/utils.js';
+import { useNavigate } from 'react-router-dom';
 
 export function ItemDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [quantity, setQuantity] = useState(0);
@@ -106,7 +108,11 @@ export function ItemDetail() {
                   </Button>
                 </>
               ) : (
-                <Button color="secondary" className="mt-4">
+                <Button
+                  color="secondary"
+                  className="mt-4"
+                  onClick={() => navigate('/login')}
+                >
                   Logueate para agregar al carrito
                 </Button>
               )}
