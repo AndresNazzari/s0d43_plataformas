@@ -337,9 +337,9 @@ const POKEMONS = [
   },
   {
     id: 25,
-    category: 'eléctrico',
+    category: 'electrico',
     description:
-      'Pikachu, el famoso Pokémon de tipo eléctrico, almacena electricidad en sus mejillas y la libera en forma de rayos cuando se encuentra amenazado o emocionado.',
+      'Pikachu, el famoso Pokémon de tipo electrico, almacena electricidad en sus mejillas y la libera en forma de rayos cuando se encuentra amenazado o emocionado.',
     image:
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
     price: 19.99,
@@ -351,7 +351,7 @@ const POKEMONS = [
   },
   {
     id: 26,
-    category: 'eléctrico',
+    category: 'electrico',
     description:
       'Raichu, la evolución de Pikachu, tiene mayor capacidad de almacenar electricidad. Puede liberar descargas poderosas que paralizan a sus oponentes.',
     image:
@@ -1121,9 +1121,9 @@ const POKEMONS = [
   },
   {
     id: 81,
-    category: 'eléctrico',
+    category: 'electrico',
     description:
-      'Magnemite es un Pokémon de tipo eléctrico y acero. Flota en el aire utilizando campos magnéticos y dispara electricidad para atacar a sus enemigos.',
+      'Magnemite es un Pokémon de tipo electrico y acero. Flota en el aire utilizando campos magnéticos y dispara electricidad para atacar a sus enemigos.',
     image:
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/81.png',
     price: 10.99,
@@ -1135,9 +1135,9 @@ const POKEMONS = [
   },
   {
     id: 82,
-    category: 'eléctrico',
+    category: 'electrico',
     description:
-      'Magneton, la evolución de Magnemite, es un Pokémon formado por tres Magnemite que se combinan para generar un campo eléctrico más poderoso.',
+      'Magneton, la evolución de Magnemite, es un Pokémon formado por tres Magnemite que se combinan para generar un campo electrico más poderoso.',
     image:
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/82.png',
     price: 15.99,
@@ -1387,9 +1387,9 @@ const POKEMONS = [
   },
   {
     id: 100,
-    category: 'eléctrico',
+    category: 'electrico',
     description:
-      'Voltorb es un Pokémon que parece una Poké Ball, pero tiene un núcleo eléctrico. Explota cuando se siente amenazado o perturbado.',
+      'Voltorb es un Pokémon que parece una Poké Ball, pero tiene un núcleo electrico. Explota cuando se siente amenazado o perturbado.',
     image:
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/100.png',
     price: 10.49,
@@ -1401,7 +1401,7 @@ const POKEMONS = [
   },
   {
     id: 101,
-    category: 'eléctrico',
+    category: 'electrico',
     description:
       'Electrode es la evolución de Voltorb. Es conocido por su capacidad para almacenar grandes cantidades de electricidad y explotar cuando está emocionado o en peligro.',
     image:
@@ -1737,9 +1737,9 @@ const POKEMONS = [
   },
   {
     id: 125,
-    category: 'eléctrico',
+    category: 'electrico',
     description:
-      'Electabuzz es un Pokémon tipo eléctrico conocido por su habilidad para absorber y generar electricidad. Es rápido y se alimenta de energía eléctrica.',
+      'Electabuzz es un Pokémon tipo electrico conocido por su habilidad para absorber y generar electricidad. Es rápido y se alimenta de energía eléctrica.',
     image:
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/125.png',
     price: 14.99,
@@ -1877,9 +1877,9 @@ const POKEMONS = [
   },
   {
     id: 135,
-    category: 'eléctrico',
+    category: 'electrico',
     description:
-      'Jolteon, una de las evoluciones de Eevee, es un Pokémon tipo eléctrico que genera electricidad estática para atacar a sus enemigos.',
+      'Jolteon, una de las evoluciones de Eevee, es un Pokémon tipo electrico que genera electricidad estática para atacar a sus enemigos.',
     image:
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/135.png',
     price: 16.99,
@@ -2017,9 +2017,9 @@ const POKEMONS = [
   },
   {
     id: 145,
-    category: 'eléctrico',
+    category: 'electrico',
     description:
-      'Zapdos, un Pokémon legendario de tipo eléctrico y volador, genera poderosos rayos. Es temido por su fuerza y su conexión con las tormentas eléctricas.',
+      'Zapdos, un Pokémon legendario de tipo electrico y volador, genera poderosos rayos. Es temido por su fuerza y su conexión con las tormentas eléctricas.',
     image:
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/145.png',
     price: 29.99,
