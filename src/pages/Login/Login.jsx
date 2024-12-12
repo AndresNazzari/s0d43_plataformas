@@ -21,7 +21,6 @@ export const Login = () => {
   });
 
   useEffect(() => {
-    console.log('user', user);
     if (user) {
       navigate('/');
     }

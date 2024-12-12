@@ -16,23 +16,13 @@ import { ProductForm } from './components/ProductForm';
 import { UserForm } from './components/UserForm';
 import { useEffect } from 'react';
 import { ROLES } from './constants/roles.js';
-import POKEMONS from './mock/products.js';
-import { USERS } from './mock/USERS.js';
+import POKEMONS from './mock-old/products.js';
+import { USERS } from './mock-old/USERS.js';
 
 export default function App() {
   const navigate = useNavigate();
   const usersAllowed = [ROLES.ADMIN.id, ROLES.USER.id];
   const adminAllowed = [ROLES.ADMIN.id];
-
-  useEffect(() => {
-    const products = JSON.parse(localStorage.getItem('products'));
-    if (!products || products.length === 0)
-      localStorage.setItem('products', JSON.stringify(POKEMONS));
-
-    const users = JSON.parse(localStorage.getItem('users'));
-    if (!users || users.length === 0)
-      localStorage.setItem('users', JSON.stringify(USERS));
-  }, []);
 
   return (
     <>

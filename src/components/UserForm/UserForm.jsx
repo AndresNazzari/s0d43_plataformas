@@ -45,7 +45,7 @@ export const UserForm = () => {
   useEffect(() => {
     if (location.state.user) {
       setUserData({ ...location.state.user });
-      setSelectedKeys([location.state.user.role.name]);
+      setSelectedKeys([location.state.user.roleId === 1 ? 'admin' : 'user']);
       setIsEditMode(true);
     }
     fetchRoles().then((data) => setRoles(data));
@@ -95,7 +95,14 @@ export const UserForm = () => {
     }
 
     try {
-      isEditMode ? await updateUser(userData) : await createUser(userData);
+      let user
+      if (isEditMode) {
+        user = await updateUser(userData)
+      } else {
+        user = await createUser(userData);
+      }
+      if (!user) throw new Error();
+
       await MySwal.fire({
         title: `Usuario ${isEditMode ? 'editado' : 'creado'}`,
         text: 'Operacion realizada con exito!',
@@ -108,7 +115,7 @@ export const UserForm = () => {
       console.error('Error login user', error);
       await MySwal.fire({
         title: 'Error',
-        text: 'Error en Login, aglgo salio mal!',
+        text: 'Error en Login, algo salio mal!',
         icon: 'error',
         showCancelButton: false,
         confirmButtonColor: '#3085d6',

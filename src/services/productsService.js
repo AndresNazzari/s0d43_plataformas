@@ -1,48 +1,80 @@
+import fetchService from "./fetchService.js";
+import { PRODUCT } from "../constants/endpoints.js";
+
 export const getAllProducts = async (category) => {
-  const productsStr = localStorage.getItem('products');
-  const products = JSON.parse(productsStr);
+  try {
+    const res = await fetchService({
+      url: PRODUCT,
+    });
 
-  if (category) {
-    return products?.filter((product) => product.category === category);
+    if (res.status === 200) {
+      if (category) {
+        return res.data?.filter((product) => product.category === category);
+      }
+      return res.data;
+    }
+  } catch (error) {
+    console.error('Error fetching products', error);
   }
-
-  return products;
 };
 
 export const getProductById = async (id) => {
-  const productsStr = localStorage.getItem('products');
-  const product = JSON.parse(productsStr);
+  try {
+    const res = await fetchService({
+      url: `${PRODUCT}/${id}`,
+    });
 
-  return product?.find((product) => product.id === parseInt(id));
+    if (res.status === 200) {
+      return res.data;
+    }
+  } catch (error) {
+    console.error('Error fetching products', error);
+  }
 };
 
-export const deleteProduct = (id) => {
-  const productsStr = localStorage.getItem('products');
-  const product = JSON.parse(productsStr);
-  const data = product?.filter((product) => product.id !== parseInt(id));
+export const deleteProduct = async (id) => {
+  try {
+    const res = await fetchService({
+      method: 'delete',
+      url: `${PRODUCT}/${id}`,
+    });
 
-  localStorage.setItem('products', JSON.stringify(data));
-  return data;
+    if (res.status === 200) {
+      return res.data;
+    }
+  } catch (error) {
+    console.error('Error fetching products', error);
+  }
 };
 
 export const createProduct = async (product) => {
-  const productsStr = localStorage.getItem('products');
-  const products = JSON.parse(productsStr);
-  const newProduct = { ...product, id: products.length + 1 };
-  const data = [...products, newProduct];
-  localStorage.setItem('products', JSON.stringify(data));
+  try {
+    const res = await fetchService({
+      method: 'post',
+      url: `${PRODUCT}`,
+      data: product,
+    });
 
-  return data;
+    if (res.status === 200) {
+      return res.data;
+    }
+  } catch (error) {
+    console.error('Error fetching products', error);
+  }
 };
 
 export const updateProduct = async (product) => {
-  const productsStr = localStorage.getItem('products');
-  const products = JSON.parse(productsStr);
-  const data = products.map((item) =>
-    item.id === product.id ? product : item
-  );
+  try {
+    const res = await fetchService({
+      method: 'put',
+      url: `${PRODUCT}/${product.id}`,
+      data: product,
+    });
 
-  localStorage.setItem('products', JSON.stringify(data));
-
-  return data;
+    if (res.status === 200) {
+      return res.data;
+    }
+  } catch (error) {
+    console.error('Error fetching products', error);
+  }
 };

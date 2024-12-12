@@ -54,9 +54,17 @@ export const ProductsTable = () => {
     });
   };
 
-  const handleEliminar = (id) => {
-    const updatedProducts = deleteProduct(id);
-    setProducts(updatedProducts);
+  const handleEliminar = async (id) => {
+    setLoading(true);
+    try {
+      await deleteProduct(id);
+      const data = await getAllProducts()
+      setProducts(data)
+    } catch (error) {
+      console.error('Error deleting product', error);
+    } finally {
+        setLoading(false);
+    }
   };
 
   const renderCell = useCallback((item, columnKey) => {

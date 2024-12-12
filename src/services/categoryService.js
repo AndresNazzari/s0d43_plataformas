@@ -1,6 +1,6 @@
 import fetchService from './fetchService.js';
 import { GET_CATEGORY } from '../constants/endpoints.js';
-import { categories } from '../mock/categories.js';
+import { categories } from '../mock-old/categories.js';
 
 export const fetchCategory = async () => {
   try {

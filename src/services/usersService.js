@@ -1,9 +1,15 @@
 import fetchService from './fetchService.js';
+import {LOGIN, REGISTER, USERS} from "../constants/endpoints.js";
 
 export const getUsers = async () => {
   try {
-    const dataStr = localStorage.getItem('users');
-    return JSON.parse(dataStr);
+    const res = await fetchService({
+      url: USERS,
+    });
+
+    if (res.status === 200) {
+      return res.data;
+    }
   } catch (error) {
     console.error('Error fetching products', error);
   }
@@ -11,45 +17,65 @@ export const getUsers = async () => {
 
 export const loginUser = async (userData) => {
   try {
-    const usersStr = localStorage.getItem('users');
-    const users = JSON.parse(usersStr);
-    const user = users.find(
-      (user) =>
-        user.email === userData.email && user.password === userData.password
-    );
-    console.log('user', user);
-    return user;
+    const res = await fetchService({
+      method: 'post',
+      url: LOGIN,
+      data: userData,
+    });
+
+    if (res.status === 200) {
+      localStorage.setItem('token', res.data.token);
+      return res.data.user;
+    }
   } catch (error) {
     console.error('Error fetching products', error);
   }
 };
 
 export const createUser = async (userData) => {
-  const usersStr = localStorage.getItem('users');
-  const users = JSON.parse(usersStr);
-  const newUser = { ...userData, id: users.length + 1 };
-  const data = [...users, newUser];
-  localStorage.setItem('users', JSON.stringify(data));
+  const newUser = { ...userData, roleId: userData.roleId || 2 };
+  try {
+    const res = await fetchService({
+      method: 'post',
+      url: REGISTER,
+      data: newUser,
+    });
 
-  return data;
+    if (res.status === 200) {
+      return res.data;
+    }
+  } catch (error) {
+    console.error('Error fetching products', error);
+  }
 };
 
 export const updateUser = async (userData) => {
-  const usersStr = localStorage.getItem('users');
-  const users = JSON.parse(usersStr);
-  const data = users.map((item) => (item.id === userData.id ? userData : item));
+  try {
+    const res = await fetchService({
+      method: 'put',
+      url: `${REGISTER}/${userData.email}`,
+      data: userData,
+    });
 
-  localStorage.setItem('users', JSON.stringify(data));
-
-  return data;
+    if (res.status === 200) {
+      return res.data;
+    }
+  } catch (error) {
+    console.error('Error fetching products', error);
+  }
 };
 
-export const deleteUser = async (id) => {
-  const usersStr = localStorage.getItem('users');
-  const users = JSON.parse(usersStr);
-  const data = users.filter((user) => user.id !== parseInt(id));
+export const deleteUser = async (email) => {
+  try {
+    const res = await fetchService({
+      method: 'delete',
+      url: `${REGISTER}/${email}`,
+    });
 
-  localStorage.setItem('users', JSON.stringify(data));
-
-  return data;
+    if (res.status === 200) {
+      return res.data;
+    }
+  } catch (error) {
+    console.error('Error fetching products', error);
+  }
 };

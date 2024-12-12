@@ -13,13 +13,15 @@ export const Register = () => {
   const MySwal = withReactContent(Swal);
   const navigate = useNavigate();
   const { deleteCart } = useCartContext();
-  const { user } = useUserContext();
+  const { user, logIn } = useUserContext();
   const [isLoading, setIsLoading] = useState(false);
   const [isPassVisible, setIsPassVisible] = useState(false);
   const [isPass2Visible, setIsPass2Visible] = useState(false);
   const [isInvalidPass, setIsInvalidPass] = useState(false);
   const [isInvalidEmail, setIsInvalidEmail] = useState(false);
 
+  // quitar del formulario los campos que no se necesiten
+  // name surname address
   const [userData, setUserData] = useState({
     name: '',
     surname: '',
@@ -32,8 +34,6 @@ export const Register = () => {
   });
 
   useEffect(() => {
-    // verificar con el login o cookie si el usuario ya esta logueado
-    console.log('user', user);
     if (user) {
       navigate('/');
     }
@@ -42,7 +42,7 @@ export const Register = () => {
   const togglePassVisibility = () => setIsPassVisible(!isPassVisible);
   const togglePass2Visibility = () => setIsPass2Visible(!isPass2Visible);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setIsLoading(true);
     const hasEmptyFields = Object.values(userData).some(
       (value) => typeof value === 'string' && value.trim() === ''
@@ -64,23 +64,37 @@ export const Register = () => {
       return;
     }
 
-    MySwal.fire({
-      title: 'Felicidades!',
-      text: 'Registro realizado con exito!',
-      icon: 'success',
-      showCancelButton: false,
-      confirmButtonColor: '#3085d6',
-      confirmButtonText: 'Aceptar',
-    })
-      .then(async () => {
-        const user = await createUser(userData);
+    try {
+      const { user, token } = await createUser(userData);
+      if (!user) throw new Error();
+      localStorage.setItem('token', token);
+      logIn(user);
 
-        setIsLoading(false);
+      MySwal.fire({
+        title: 'Felicidades!',
+        text: 'Registro realizado con exito!',
+        icon: 'success',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Aceptar',
       })
-      .then(() => {
-        deleteCart();
-        navigate('/');
-      });
+          .then(() => {
+            deleteCart();
+            navigate('/');
+          });
+    } catch (error) {
+      console.error('Error Registro user', error);
+      MySwal.fire({
+        title: 'Error',
+        text: 'Error en Registro, algo salio mal!',
+        icon: 'error',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Aceptar',
+      })
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const validateEmail = (value) =>

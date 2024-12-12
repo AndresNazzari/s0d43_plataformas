@@ -1,7 +1,7 @@
 import fetchService from './fetchService';
 import { ORDER } from '../constants/endpoints';
 
-import { orders } from '../mock/orders.js';
+import { orders } from '../mock-old/orders.js';
 
 export const getOrders = async () => {
   try {

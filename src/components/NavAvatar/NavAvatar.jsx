@@ -40,14 +40,14 @@ export const NavAvatar = () => {
             <DropdownItem href="/profile" key="profile1" className="h-14 gap-2">
               <p className="font-semibold">{user.email}</p>
               <p className="font-semibold">
-                {capitalizeFirstLetter(user.role.name)}
+                {user?.roleId === ROLES.ADMIN.id ? 'Admin' : 'User'}
               </p>
             </DropdownItem>
             <DropdownItem key="cart" href="/cart">
               Carrito
             </DropdownItem>
           </DropdownSection>
-          {user?.role.id === ROLES.ADMIN.id && (
+          {user?.roleId === ROLES.ADMIN.id && (
             <DropdownSection title="Dashboard">
               <DropdownItem
                 href="/dashboard/products"

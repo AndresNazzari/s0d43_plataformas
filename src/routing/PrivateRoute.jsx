@@ -13,12 +13,12 @@ export function PrivateRoute({ allowedRoles }) {
       console.log('useEffect PrivateRoute');
       navigate('/login');
     }
-    if (user && !allowedRoles.includes(user.role.id)) {
+    if (user && !allowedRoles.includes(user.roleId)) {
       navigate('/');
     }
   }, [user, loading, navigate, allowedRoles]);
 
-  return user && allowedRoles?.includes(user.role.id) ? <Outlet /> : '';
+  return user && allowedRoles?.includes(user.roleId) ? <Outlet /> : '';
 }
 
 PrivateRoute.propTypes = {

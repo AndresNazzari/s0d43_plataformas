@@ -32,7 +32,7 @@ export const ProductForm = () => {
   const [categories, setCategories] = useState([]);
   const [selectedKeys, setSelectedKeys] = useState(['Categoria']);
   const [productData, setProductData] = useState({
-    id: 0,
+    number: 0,
     category: '',
     description: '',
     image: 'https://nextui.org/images/hero-card-complete.jpeg',

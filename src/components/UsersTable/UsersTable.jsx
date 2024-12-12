@@ -17,6 +17,7 @@ import { USERS_TABLE_COLUMNS } from '../../constants/dashboard.js';
 import { deleteUser, getUsers } from '../../services/usersService.js';
 import { Loader } from '../Loader/index.js';
 import { useNavigate } from 'react-router-dom';
+import {deleteProduct, getAllProducts} from "../../services/productsService.js";
 
 export const UsersTable = () => {
   const [users, setUsers] = useState([]);
@@ -49,9 +50,17 @@ export const UsersTable = () => {
     });
   };
 
-  const handleEliminar = async (id) => {
-    const updatedUsers = await deleteUser(id);
-    setUsers(updatedUsers);
+  const handleEliminar = async (email) => {
+    setLoading(true);
+    try {
+      await deleteUser(email);
+      const data = await getUsers()
+      setUsers(data)
+    } catch (error) {
+      console.error('Error deleting product', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const renderCell = useCallback((item, columnKey) => {
@@ -79,11 +88,11 @@ export const UsersTable = () => {
         return (
           <Chip
             className="capitalize"
-            color={item.role.name}
+            color={item.roleId}
             size="sm"
             variant="flat"
           >
-            {item.role.name}
+            {item.roleId === 1 ? 'Admin' : 'User'}
           </Chip>
         );
       case 'actions':
@@ -100,7 +109,7 @@ export const UsersTable = () => {
             <Tooltip color="danger" content="Eliminar usuario">
               <span
                 className="text-lg text-danger cursor-pointer active:opacity-50"
-                onClick={() => handleEliminar(item.id)}
+                onClick={() => handleEliminar(item.email)}
               >
                 <DeleteIcon />
               </span>
